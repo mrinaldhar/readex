@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+	<title>ReadEX</title>
+	<style>
+	@font-face {
+		src: url('./fonts/myriadl.otf');
+		font-family: myriadl;
+	}
+	body,h1,h3 {
+		font-family: myriadl;
+		text-align: center;
+	}
+	h1 {
+		font-size: 3em;
+	}
+	h3 {
+		font-size: 1.5em;
+	}
+	</style>
+</head>
+<body>
+	<h1>Introducing ReadEX</h1>
+	<h3>Helping you read and write regular expressions (finally!)</h3>
+	<input type="text" id="user_input" name="user_input" />
+	<button id="process" onclick="getStringFromUser()">Process this</button>
+	<div id="results"></div>
+	<script src="./js/jquery.js"></script>
+	<script>
+		var user_input;
+		var treeNode = {};
+		function getStringFromUser() {
+			user_input = $('#user_input').val();
+			treeNode = {
+				original: user_input,
+				doneProcessing: false,
+				children: []
+			};
+			console.log(treeNode);
+			startProcessing(treeNode);
+		}
+		function startProcessing(node) {
+			if (node["doneProcessing"] == true) {
+				return false;
+			}
+			else {
+				var childrenArray = parseRegex(node["original"]);
+				for (var i=0; i<childrenArray.length; i++) {
+					node["children"].push({
+						original: childrenArray[i],
+						doneProcessing: false,
+						children: []
+					});
+				}
+				node["doneProcessing"] = true;
+				for (var i=0; i<node["children"].length; i++) {
+					startProcessing(node["children"][i]);
+				}
+			}
+		}
+		function parseRegex(string) {
+			return [];
+		}
+	</script>
+</body>
+</html>
