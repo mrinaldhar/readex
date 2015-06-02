@@ -1,17 +1,24 @@
-user_input = ''
+import parser
+user_input = raw_input('text: ')
 treeNode = {}
 treeNode['original'] = user_input
 treeNode['children'] = []
 
-print treeNode
-startProcessing(treeNode)
-
 def startProcessing(node):
-	childrenArray = parser(node['original'])
+	childrenArray = parser.parse(node['original'])
+	if childrenArray[0] == node['original']:
+		print "Stopping"
+		return
+
 	for i in range(0, len(childrenArray)):
 		newNode = {}
-		newNode['children'] = []
 		newNode['original'] = childrenArray[i]
-		node['children'].push(newNode)
-	for i in range(0, len(treeNode['children']):
+		newNode['children'] = []
+		node['children'].append(newNode)
+
+	for i in range(0, len(treeNode['children'])):
 		startProcessing(treeNode['children'][i])
+
+
+startProcessing(treeNode)
+print treeNode
