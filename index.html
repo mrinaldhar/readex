@@ -4,63 +4,131 @@
 	<title>ReadEX</title>
 	<style>
 	@font-face {
-		src: url('./fonts/myriadl.otf');
-		font-family: myriadl;
+		src: url('./fonts/UnityText-Bold.woff');
+		font-family: unitybold;
 	}
-	body,h1,h3 {
-		font-family: myriadl;
+	@font-face {
+		src: url('./fonts/UnityText-Roman.woff');
+		font-family: unity;
+	}
+	html {
+		text-rendering: optimizeLegibility !important;
+
+-webkit-font-smoothing: antialiased !important;
+	}
+	body {
+		font-family: unity;
 		text-align: center;
 	}
+	body {
+		background-color: rgba(10,82,158,1);
+		color: white;
+			-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	}
 	h1 {
-		font-size: 3em;
+		font-size: 5em;
+		font-family: unitybold;
 	}
 	h3 {
 		font-size: 1.5em;
 	}
+	input[type=text] {
+		outline-width: 0px;
+		border: 0px;
+		font-size: 1.1em;
+		font-family: unity;
+		width: 70%;
+		padding: 9px;
+		border-radius: 2px;
+	}
+	#process {
+		background-color: transparent;
+		border: 3px solid white;
+		border-radius: 2px;
+		color: white;
+		cursor: pointer;
+		padding: 11px 20px 11px 20px;
+	}
+	#footer {
+		width: 100%;
+		position: absolute;
+		bottom: 0px;
+		left:0px;
+		padding-bottom: 10px;
+	}
+	#process:hover {
+		background-color: white;
+		color: rgba(10,82,158,1);
+		border: 3px solid rgba(10,82,158,0.6);
+	}
+	#main_bar {
+		padding-top: 20px;
+		text-align: center;
+	}
+	#logo_small {
+		font-size: 2em;
+		opacity: 0;
+		display: none;
+		padding-right: 5px;
+		font-family: unitybold;
+	}
 	</style>
 </head>
 <body>
-	<h1>Introducing ReadEX</h1>
-	<h3>Helping you read and write regular expressions (finally!)</h3>
-	<input type="text" id="user_input" name="user_input" />
-	<button id="process" onclick="getStringFromUser()">Process this</button>
+	<div id="top_bar">
+	<h1>Read<span style="color: black;">EX</span></h1>
+	<h3>Helps you read and write Regular Expressions (finally!)</h3>
+</div>
+<div id="main_bar">
+	<span id="logo_small">Read<span style="color: black;">EX</span></span>
+	<input type="text" id="user_input" name="user_input" placeholder="Just paste the regex here or write what you would like a regex to do." />
+	<button id="process" onclick="getStringFromUser()">OKAY</button>
+</div>
 	<div id="results"></div>
+	<div id="footer">Developed by Mrinal Dhar &amp; Chanakya Malireddy</div>
 	<script src="./js/jquery.js"></script>
 	<script>
-		var user_input;
-		var treeNode = {};
-		function getStringFromUser() {
-			user_input = $('#user_input').val();
-			treeNode = {
-				original: user_input,
-				doneProcessing: false,
-				children: []
-			};
-			console.log(treeNode);
-			startProcessing(treeNode);
-		}
-		function startProcessing(node) {
-			if (node["doneProcessing"] == true) {
-				return false;
-			}
-			else {
-				var childrenArray = parseRegex(node["original"]);
-				for (var i=0; i<childrenArray.length; i++) {
-					node["children"].push({
-						original: childrenArray[i],
-						doneProcessing: false,
-						children: []
-					});
-				}
-				node["doneProcessing"] = true;
-				for (var i=0; i<node["children"].length; i++) {
-					startProcessing(node["children"][i]);
-				}
-			}
-		}
-		function parseRegex(string) {
-			return [];
-		}
+	$('#user_input').click(function() {
+		$('#top_bar').slideUp(400);
+		$('#logo_small').show();
+		$('#logo_small').animate({opacity: 1}, 500);
+		$('#user_input').animate({width: "75%"}, 500);
+	});
+		// var user_input;
+		// var treeNode = {};
+		// function getStringFromUser() {
+		// 	user_input = $('#user_input').val();
+		// 	treeNode = {
+		// 		original: user_input,
+		// 		doneProcessing: false,
+		// 		children: []
+		// 	};
+		// 	console.log(treeNode);
+		// 	startProcessing(treeNode);
+		// }
+		// function startProcessing(node) {
+		// 	if (node["doneProcessing"] == true) {
+		// 		return false;
+		// 	}
+		// 	else {
+		// 		var childrenArray = parseRegex(node["original"]);
+		// 		for (var i=0; i<childrenArray.length; i++) {
+		// 			node["children"].push({
+		// 				original: childrenArray[i],
+		// 				doneProcessing: false,
+		// 				children: []
+		// 			});
+		// 		}
+		// 		node["doneProcessing"] = true;
+		// 		for (var i=0; i<node["children"].length; i++) {
+		// 			startProcessing(node["children"][i]);
+		// 		}
+		// 	}
+		// }
+		// function parseRegex(string) {
+		// 	return [];
+		// }
 	</script>
 </body>
 </html>
