@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -73,6 +74,13 @@
 		padding-right: 5px;
 		font-family: unitybold;
 	}
+	#results {
+		padding-top: 50px;
+		width: 100%;
+		display: block;
+		font-family: unity;
+		font-size: 1.1em;
+	}
 	</style>
 </head>
 <body>
@@ -85,50 +93,40 @@
 	<input type="text" id="user_input" name="user_input" placeholder="Just paste the regex here or write what you would like a regex to do." />
 	<button id="process" onclick="getStringFromUser()">OKAY</button>
 </div>
-	<div id="results"></div>
+	<pre id="results"></div>
 	<div id="footer">Developed by Mrinal Dhar &amp; Chanakya Malireddy</div>
 	<script src="./js/jquery.js"></script>
 	<script>
+document.onkeypress = function (e) {
+    e = e || window.event;
+    $('#user_input').focus();
+    $('#user_input').click();
+};
 	$('#user_input').click(function() {
 		$('#top_bar').slideUp(400);
 		$('#logo_small').show();
 		$('#logo_small').animate({opacity: 1}, 500);
 		$('#user_input').animate({width: "75%"}, 500);
+
+
+
 	});
-		// var user_input;
-		// var treeNode = {};
-		// function getStringFromUser() {
-		// 	user_input = $('#user_input').val();
-		// 	treeNode = {
-		// 		original: user_input,
-		// 		doneProcessing: false,
-		// 		children: []
-		// 	};
-		// 	console.log(treeNode);
-		// 	startProcessing(treeNode);
-		// }
-		// function startProcessing(node) {
-		// 	if (node["doneProcessing"] == true) {
-		// 		return false;
-		// 	}
-		// 	else {
-		// 		var childrenArray = parseRegex(node["original"]);
-		// 		for (var i=0; i<childrenArray.length; i++) {
-		// 			node["children"].push({
-		// 				original: childrenArray[i],
-		// 				doneProcessing: false,
-		// 				children: []
-		// 			});
-		// 		}
-		// 		node["doneProcessing"] = true;
-		// 		for (var i=0; i<node["children"].length; i++) {
-		// 			startProcessing(node["children"][i]);
-		// 		}
-		// 	}
-		// }
-		// function parseRegex(string) {
-		// 	return [];
-		// }
+	$('#user_input').keyup(function(e) {
+    if (e.which == 13) {
+    	getStringFromUser();
+    }
+});
+	function getStringFromUser() {
+		$(function() {
+        $.getJSON('http://localhost:8000/_get_user_input', {
+          input: $('#user_input').val()
+        }, function(data) {
+        	console.log(data);
+          $("#results").text(JSON.stringify(data, null, '\t\t\t'));
+        });
+        return false;
+    });
+	}
 	</script>
 </body>
 </html>
