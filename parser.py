@@ -1,10 +1,21 @@
 def parse(string):
-	if string[0] == '(' and string[-1] == ')':
-		string = string[1:-1]
 	atoms = []
 	brack_count = 0;
 	escape = 0;
 	atom = ''
+
+	if string[0] == '(':
+		index = 0
+		for each in string:
+			if each == '(':
+				brack_count += 1
+			elif each == ')':
+				brack_count -= 1
+			if brack_count == 0:
+				break
+		if index == len(string):
+			string = string[1:-1]
+
 	for char in string:
 		atom += char;
 		if escape == 1:
