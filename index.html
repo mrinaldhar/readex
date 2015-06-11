@@ -53,10 +53,13 @@
 	}
 	#footer {
 		width: 100%;
-		position: absolute;
+		text-align: center;
+		position: fixed;
+		background-color: rgba(10,82,158,1);
+		
 		bottom: 0px;
 		left:0px;
-		padding-bottom: 10px;
+		padding-bottom: 15px;
 	}
 	#process:hover {
 		background-color: white;
@@ -75,11 +78,11 @@
 		font-family: unitybold;
 	}
 	#results {
-		padding-top: 50px;
-		width: 100%;
-		display: block;
+		padding: 50px;
+		width: 90%;
 		font-family: unity;
 		font-size: 1.1em;
+		text-align: left;
 	}
 	</style>
 </head>
@@ -93,7 +96,7 @@
 	<input type="text" id="user_input" name="user_input" placeholder="Just paste the regex here or write what you would like a regex to do." />
 	<button id="process" onclick="getStringFromUser()">OKAY</button>
 </div>
-	<pre id="results"></div>
+	<pre id="results"></pre>
 	<div id="footer">Developed by Mrinal Dhar &amp; Chanakya Malireddy</div>
 	<script src="./js/jquery.js"></script>
 	<script>
@@ -106,10 +109,9 @@ document.onkeypress = function (e) {
 		$('#top_bar').slideUp(400);
 		$('#logo_small').show();
 		$('#logo_small').animate({opacity: 1}, 500);
-		$('#user_input').animate({width: "75%"}, 500);
-
-
-
+		$('#user_input').animate({width: "75%"}, 500, function() {
+		$('#top_bar').css({"position":"fixed"});
+		});
 	});
 	$('#user_input').keyup(function(e) {
     if (e.which == 13) {
